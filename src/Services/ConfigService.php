@@ -43,6 +43,7 @@ class ConfigService
                 return false;
             }
         }
+        return true;
     }
 
     public function getConfig()
