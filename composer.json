@@ -4,5 +4,10 @@
     "require": {
         "laravel/framework": "5.2.*",
         "ryanwinchester/netsuite-php": "2016.1.*"
+    },
+    "autoload": {
+        "psr-4": {
+            "Usulix\\Netsuite\\": "src"
+        }
     }
 }
