@@ -1,9 +1,8 @@
 <?php namespace Usulix\Netsuite\Services;
 
 use Illuminate\Contracts\Logging\Log;
-use NetSuite\NetSuiteService;
 
-class NetsuiteService
+class NetSuiteService
 {
 
     protected $logger;
@@ -16,6 +15,6 @@ class NetsuiteService
             $this->logger->info('NetSuiteService requested but config not available.');
             return false;
         }
-        return new NetsuiteService($arrConfig);
+        return new NetSuite\NetsuiteService($arrConfig);
     }
 }

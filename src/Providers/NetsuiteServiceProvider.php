@@ -4,7 +4,7 @@ use Usulix\NetSuite\Services\NetSuiteService;
 use Usulix\NetSuite\Services\ConfigService;
 use Illuminate\Support\ServiceProvider;
 
-class NetsuiteServiceProvider extends ServiceProvider
+class NetSuiteServiceProvider extends ServiceProvider
 {
 
     protected $defer = true;
@@ -16,13 +16,13 @@ class NetsuiteServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        $this->app->singleton('Usulix\Netsuite\NetSuiteService', function ($app) {
+        $this->app->singleton('Usulix\NetSuite\NetSuiteService', function ($app) {
             return new NetSuiteService((new ConfigService())->getConfig());
         });
     }
 
     public function provides()
     {
-        return ['Usulix\Netsuite\NetSuiteService'];
+        return ['Usulix\NetSuite\NetSuiteService'];
     }
 }

@@ -7,7 +7,7 @@
     },
     "autoload": {
         "psr-4": {
-            "Usulix\\Netsuite\\": "src"
+            "Usulix\\NetSuite\\": "src"
         }
     }
 }
