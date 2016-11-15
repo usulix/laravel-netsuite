@@ -13,6 +13,11 @@ class NetSuiteService
             $this->logger->info('NetSuiteService requested but config not available.');
             return false;
         }
-        return new NetSuite\NetsuiteService($arrConfig);
+        $this->service = NetSuite\NetsuiteService($arrConfig);
+    }
+    
+    public function getService()
+    {
+        return $this->service;
     }
 }
