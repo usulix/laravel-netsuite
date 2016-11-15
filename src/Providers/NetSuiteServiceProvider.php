@@ -3,7 +3,6 @@
 use Usulix\NetSuite\Services\NetSuiteService;
 use Usulix\NetSuite\Services\ConfigService;
 use Illuminate\Support\ServiceProvider;
-use Illuminate\Contracts\Logging\Log;
 
 class NetSuiteServiceProvider extends ServiceProvider
 {
@@ -16,9 +15,9 @@ class NetSuiteServiceProvider extends ServiceProvider
      *
      * @return void
      */
-    public function register(Log $log)
+    public function register()
     {
-        $this->logger = $log;
+        $this->logger = app('Log');
         $this->app->singleton('Usulix\NetSuite\NetSuiteService', function ($app) {
             return new NetSuiteService($this->logger, (new ConfigService($this->logger))->getConfig());
         });
