@@ -1,0 +1,8 @@
+{
+    "name": "usulix/laravel5-netsuite-php",
+    "description": "A laravel5 wrapper around ryanwinchester/netsuite-php",
+    "require": {
+        "laravel/framework": "5.2.*",
+        "ryanwinchester/netsuite-php": "2016.1.*"
+    }
+}
