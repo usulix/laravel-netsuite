@@ -10,10 +10,10 @@ class ConfigService
     protected $arrNlAuthFields;
     protected $arrTokenFields;
 
-    public function __construct()
+    public function __construct(Log $log)
     {
         $this->booConfigOk = false;
-        $this->logger = new Log();
+        $this->logger = $log;
         $this->arrTokenFields = [
             'NETSUITE_ENDPOINT',
             'NETSUITE_HOST',

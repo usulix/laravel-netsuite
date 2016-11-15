@@ -8,9 +8,9 @@ class NetSuiteService
     protected $logger;
     protected $service;
 
-    public function __construct($arrConfig)
+    public function __construct(Log $log, $arrConfig)
     {
-        $this->logger = new Log();
+        $this->logger = $log;
         if (!$arrConfig) {
             $this->logger->info('NetSuiteService requested but config not available.');
             return false;
