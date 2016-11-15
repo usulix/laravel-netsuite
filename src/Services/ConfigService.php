@@ -29,11 +29,20 @@ class ConfigService
         $this->booConfigOk = false;
         $this->logger = $log;
 
-        if ($this->checkToken() || $this->checkAuth()) {
+        if ($this->checkFields('arrTokenFields') || $this->checkFields('arrNlAuthFields')) {
             $this->booConfigOk = true;
         }
 
         return $this->booConfigOk;
+    }
+
+    public function checkFields($strType)
+    {
+        foreach ($this->$strType as $strField) {
+            if (!getenv($strField)) {
+                return false;
+            }
+        }
     }
 
     public function getConfig()
