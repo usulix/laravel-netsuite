@@ -1,4 +1,4 @@
-<?php namespace Usulix\Netsuite\Services;
+<?php namespace Usulix\NetSuite\Services;
 
 use Illuminate\Contracts\Logging\Log;
 

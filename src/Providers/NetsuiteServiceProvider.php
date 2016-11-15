@@ -1,4 +1,4 @@
-<?php namespace Usulix\Netsuite\Providers;
+<?php namespace Usulix\NetSuite\Providers;
 
 use Usulix\NetSuite\Services\NetSuiteService;
 use Usulix\NetSuite\Services\ConfigService;
