@@ -1,7 +1,5 @@
 <?php namespace Usulix\NetSuite\Services;
 
-use Illuminate\Contracts\Logging\Log;
-
 class ConfigService
 {
 
@@ -26,7 +24,7 @@ class ConfigService
         'NETSUITE_APP_ID',
     ];
 
-    public function __construct(Log $log)
+    public function __construct($log)
     {
         $this->booConfigOk = false;
         $this->logger = $log;

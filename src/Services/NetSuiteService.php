@@ -1,14 +1,12 @@
 <?php namespace Usulix\NetSuite\Services;
 
-use Illuminate\Contracts\Logging\Log;
-
 class NetSuiteService
 {
 
     protected $logger;
     protected $service;
 
-    public function __construct(Log $log, $arrConfig)
+    public function __construct($log, $arrConfig)
     {
         $this->logger = $log;
         if (!$arrConfig) {
