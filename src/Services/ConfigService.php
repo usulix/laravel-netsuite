@@ -7,31 +7,30 @@ class ConfigService
 
     protected $booConfigOk;
     protected $logger;
-    protected $arrNlAuthFields;
-    protected $arrTokenFields;
+    protected $arrTokenFields = [
+        'NETSUITE_ENDPOINT',
+        'NETSUITE_HOST',
+        'NETSUITE_ACCOUNT',
+        'NETSUITE_CONSUMER_KEY',
+        'NETSUITE_CONSUMER_SECRET',
+        'NETSUITE_TOKEN',
+        'NETSUITE_TOKEN_SECRET',
+    ];
+    protected $arrNlAuthFields = [
+        'NETSUITE_ENDPOINT',
+        'NETSUITE_HOST',
+        'NETSUITE_ACCOUNT',
+        'NETSUITE_EMAIL',
+        'NETSUITE_PASSWORD',
+        'NETSUITE_ROLE',
+        'NETSUITE_APP_ID',
+    ];
 
     public function __construct(Log $log)
     {
         $this->booConfigOk = false;
         $this->logger = $log;
-        $this->arrTokenFields = [
-            'NETSUITE_ENDPOINT',
-            'NETSUITE_HOST',
-            'NETSUITE_ACCOUNT',
-            'NETSUITE_CONSUMER_KEY',
-            'NETSUITE_CONSUMER_SECRET',
-            'NETSUITE_TOKEN',
-            'NETSUITE_TOKEN_SECRET',
-        ];
-        $this->arrNlAuthFields = [
-            'NETSUITE_ENDPOINT',
-            'NETSUITE_HOST',
-            'NETSUITE_ACCOUNT',
-            'NETSUITE_EMAIL',
-            'NETSUITE_PASSWORD',
-            'NETSUITE_ROLE',
-            'NETSUITE_APP_ID',
-        ];
+
         if ($this->checkToken() || $this->checkAuth()) {
             $this->booConfigOk = true;
         }
