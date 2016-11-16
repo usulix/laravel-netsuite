@@ -1,6 +1,6 @@
 <?php namespace Usulix\NetSuite\Services;
 
-class ConfigServiceService
+class ConfigApiService
 {
 
     protected $booConfigOk;
