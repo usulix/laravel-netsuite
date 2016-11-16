@@ -181,9 +181,11 @@ class RestletService
         $headers = $this->getNlauthHeaders();
         $headers['Content-length'] = strlen(json_encode($this->getArrData()));
         $headers['Authorization'] = $this->getNlauth();
-        return (new Client())->request($this->getMethod(), $this->getBaseUrl(), [
+        $response = (new Client())->request($this->getMethod(), $this->getBaseUrl(), [
             'headers' => $headers,
             'json' => $this->getArrData()
-        ])->getBody();
+        ]);
+        $b = json_decode($response->getBody(), true);
+        return $b;
     }
 }
