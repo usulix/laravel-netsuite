@@ -2,7 +2,6 @@
 
 class NetSuiteService
 {
-
     protected $logger;
     protected $service;
 

@@ -3,7 +3,8 @@
     "description": "A laravel5 wrapper around ryanwinchester/netsuite-php",
     "require": {
         "laravel/framework": "5.2.*",
-        "ryanwinchester/netsuite-php": "2016.1.*"
+        "ryanwinchester/netsuite-php": "2016.1.*",
+        "guzzlehttp/guzzle": "^6.2"
     },
     "autoload": {
         "psr-4": {

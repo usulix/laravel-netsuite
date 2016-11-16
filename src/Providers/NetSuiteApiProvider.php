@@ -4,7 +4,7 @@ use Usulix\NetSuite\Services\NetSuiteApi;
 use Usulix\NetSuite\Services\ConfigApiService;
 use Illuminate\Support\ServiceProvider;
 
-class NetSuiteServiceProvider extends ServiceProvider
+class NetSuiteApiProvider extends ServiceProvider
 {
 
     protected $defer = true;
