@@ -20,7 +20,8 @@ class ConfigServiceService
         'NETSUITE_ACCOUNT',
         'NETSUITE_EMAIL',
         'NETSUITE_PASSWORD',
-        'NETSUITE_ROLE'
+        'NETSUITE_ROLE',
+        'NETSUITE_APP_ID'
     ];
 
     public function __construct($log)
@@ -59,10 +60,10 @@ class ConfigServiceService
                 'account' => getenv('NETSUITE_ACCOUNT'),
                 'email' => getenv('NETSUITE_EMAIL'),
                 'password' => getenv('NETSUITE_PASSWORD'),
-                'role' => getenv('NETSUITE_ROLE')
+                'role' => getenv('NETSUITE_ROLE'),
+                'app_id' => getenv('NETSUITE_APP_ID')
             ];
         } else {
-
             $arrConfig = [
                 'endpoint' => getenv('NETSUITE_ENDPOINT'),
                 'host' => getenv('NETSUITE_WEBSERVICES_HOST'),
