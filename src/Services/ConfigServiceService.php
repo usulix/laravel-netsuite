@@ -1,27 +1,27 @@
 <?php namespace Usulix\NetSuite\Services;
 
-class ConfigService
+class ConfigServiceService
 {
 
     protected $booConfigOk;
     protected $logger;
     protected $arrTokenFields = [
         'NETSUITE_ENDPOINT',
-        'NETSUITE_HOST',
+        'NETSUITE_WEBSERVICES_HOST',
         'NETSUITE_ACCOUNT',
         'NETSUITE_CONSUMER_KEY',
         'NETSUITE_CONSUMER_SECRET',
         'NETSUITE_TOKEN',
-        'NETSUITE_TOKEN_SECRET',
+        'NETSUITE_TOKEN_SECRET'
     ];
     protected $arrNlAuthFields = [
         'NETSUITE_ENDPOINT',
-        'NETSUITE_HOST',
+        'NETSUITE_WEBSERVICES_HOST',
         'NETSUITE_ACCOUNT',
         'NETSUITE_EMAIL',
         'NETSUITE_PASSWORD',
         'NETSUITE_ROLE',
-        'NETSUITE_APP_ID',
+        'NETSUITE_APP_ID'
     ];
 
     public function __construct($log)
@@ -56,7 +56,7 @@ class ConfigService
         if (getenv('NETSUITE_PASSWORD')) {
             $arrConfig = [
                 'endpoint' => getenv('NETSUITE_ENDPOINT'),
-                'host' => getenv('NETSUITE_HOST'),
+                'host' => getenv('NETSUITE_WEBSERVICES_HOST'),
                 'account' => getenv('NETSUITE_ACCOUNT'),
                 'email' => getenv('NETSUITE_EMAIL'),
                 'password' => getenv('NETSUITE_PASSWORD'),
@@ -67,7 +67,7 @@ class ConfigService
 
             $arrConfig = [
                 'endpoint' => getenv('NETSUITE_ENDPOINT'),
-                'host' => getenv('NETSUITE_HOST'),
+                'host' => getenv('NETSUITE_WEBSERVICES_HOST'),
                 'account' => getenv('NETSUITE_ACCOUNT'),
                 'consumerKey' => getenv('NETSUITE_CONSUMER_KEY'),
                 'consumerSecret' => getenv('NETSUITE_CONSUMER_SECRET'),

@@ -1,7 +1,7 @@
 <?php namespace Usulix\NetSuite\Providers;
 
 use Usulix\NetSuite\Services\NetSuiteService;
-use Usulix\NetSuite\Services\ConfigService;
+use Usulix\NetSuite\Services\ConfigServiceService;
 use Illuminate\Support\ServiceProvider;
 
 class NetSuiteServiceProvider extends ServiceProvider
@@ -19,7 +19,7 @@ class NetSuiteServiceProvider extends ServiceProvider
     {
         $this->logger = \Log::getMonolog();
         $this->app->singleton('Usulix\NetSuite\NetSuiteService', function ($app) {
-            return new NetSuiteService($this->logger, (new ConfigService($this->logger))->getConfig());
+            return new NetSuiteService($this->logger, (new ConfigServiceService($this->logger))->getConfig());
         });
     }
 
