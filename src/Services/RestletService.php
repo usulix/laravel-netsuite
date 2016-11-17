@@ -5,7 +5,17 @@ use GuzzleHttp\Client;
 class RestletService
 {
     protected $arrConfig, $arrData, $strScriptId;
-
+    protected $booUsingTokenAuth = false;
+    protected $returnProcessing = "raw";
+    protected $method = 'POST';
+    protected $baseUrl;
+    protected $nlauth;
+    protected $nlauthHeaders = [
+        'Accept' => 'application/json',
+        'Content-Type' => 'application/json',
+        'Cache-Control' => 'no-cache',
+        'Pragma' => 'no-cache'
+    ];
     /**
      * @return mixed
      */
@@ -134,16 +144,21 @@ class RestletService
         $this->setNlauthHeaders($nlauthHeaders);
     }
 
-    protected $booUsingTokenAuth = false;
-    protected $method = 'POST';
-    protected $baseUrl;
-    protected $nlauth;
-    protected $nlauthHeaders = [
-        'Accept' => 'application/json',
-        'Content-Type' => 'application/json',
-        'Cache-Control' => 'no-cache',
-        'Pragma' => 'no-cache'
-    ];
+    /**
+     * @return string
+     */
+    public function getReturnProcessing()
+    {
+        return $this->returnProcessing;
+    }
+
+    /**
+     * @param string $returnProcessing
+     */
+    public function setReturnProcessing($returnProcessing)
+    {
+        $this->returnProcessing = $returnProcessing;
+    }
 
     public function __construct($arrConfig)
     {
@@ -185,7 +200,19 @@ class RestletService
             'headers' => $headers,
             'json' => $this->getArrData()
         ]);
-        $b = json_decode($response->getBody(), true);
-        return $b;
+        $b = $response->getBody();
+        switch($this->getReturnProcessing()){
+            case "singleDecode":
+                return json_decode($b, true);
+                break;
+            case "doubleDecode":
+                return json_decode(json_decode($b,  true), true);
+                break;
+            case "responseBody":
+                return json_decode(json_decode($b,  true), true)['body'];
+                break;
+            default:
+                return $b;
+        }
     }
 }
