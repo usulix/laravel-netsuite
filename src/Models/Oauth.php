@@ -172,6 +172,7 @@ class Oauth
 
         $this->setBaseString();
         $this->setSignatureString();
+        $this->setOauthSignature();
         $this->setOauthHeader();
 
     }
@@ -179,9 +180,7 @@ class Oauth
     public function setBaseString()
     {
         $this->baseString=$this->getStrMethod()."&" . urlencode($this->getStrBaseUrl()) . "&" .
-            urlencode(
-                "deploy=1"
-                . "&oauth_consumer_key=" . $this->getArrConfig()['consumerKey']
+            urlencode("&oauth_consumer_key=" . $this->getArrConfig()['consumerKey']
                 . "&oauth_nonce=" . $this->getOauthNonce()
                 . "&oauth_signature_method=" . $this->getOauthSignatureMethod()
                 . "&oauth_timestamp=" . $this->getOauthTimestamp()
