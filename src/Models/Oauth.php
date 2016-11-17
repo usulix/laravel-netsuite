@@ -3,7 +3,7 @@
 class Oauth
 {
     protected $oauth_nonce, $oauth_timestamp, $oauth_signature_method, $oauth_version;
-    protected $url, $arrConfig, $strScriptId, $strMethod, $strBaseUrl;
+    protected $url, $arrConfig, $strScriptId, $strMethod;
     protected $baseString, $signatureString, $oauthSignature, $oauthHeader;
 
     /**
@@ -73,22 +73,6 @@ class Oauth
     /**
      * @return mixed
      */
-    public function getUrl()
-    {
-        return $this->url;
-    }
-
-    /**
-     * @param mixed $url
-     */
-    public function setUrl($url)
-    {
-        $this->url = $url;
-    }
-
-    /**
-     * @return mixed
-     */
     public function getArrConfig()
     {
         return $this->arrConfig;
@@ -137,28 +121,12 @@ class Oauth
     /**
      * @return mixed
      */
-    public function getStrBaseUrl()
-    {
-        return $this->strBaseUrl;
-    }
-
-    /**
-     * @param mixed $strBaseUrl
-     */
-    public function setStrBaseUrl($strBaseUrl)
-    {
-        $this->strBaseUrl = $strBaseUrl;
-    }
-
-    /**
-     * @return mixed
-     */
     public function getOauthHeader()
     {
         return $this->oauthHeader;
     }
 
-    public function __construct($arrConfig, $strScriptId, $strBaseUrl, $strMethod)
+    public function __construct($arrConfig, $strScriptId, $strMethod)
     {
         $this->setOauthNonce(md5(mt_rand()));
         $this->setOauthTimestamp(time());
@@ -167,7 +135,6 @@ class Oauth
         $this->setStrScriptId($strScriptId);
         $sigMeth = array_key_exists('signatureAlgorithm', $arrConfig) ? $arrConfig['signatureAlgorithm'] : 'HMAC-SHA256';
         $this->setOauthSignatureMethod($sigMeth);
-        $this->setStrBaseUrl($strBaseUrl);
         $this->setStrMethod($strMethod);
 
         $this->setBaseString();
