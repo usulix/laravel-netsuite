@@ -70,6 +70,8 @@ class ConfigApiService
             ];
             if (getenv('NETSUITE_SIGNATURE_ALGORITHM')) {
                 $arrConfig['signatureAlgorithm'] = getenv('NETSUITE_SIGNATURE_ALGORITHM');
+            } else {
+                $arrConfig['signatureAlgorithm'] = 'HMAC-SHA256';
             }
         }
         if (getenv('NETSUITE_LOGGING')) {
