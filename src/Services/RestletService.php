@@ -213,7 +213,7 @@ class RestletService
 
     public function callWithToken()
     {
-        $this->setBaseUrl($this->arrConfig['host'] . '?deploy=1&realm='.$this->getArrConfig()['account'].'script='.$this->getStrScriptId());
+        $this->setBaseUrl($this->arrConfig['host'] . '?deploy=1&realm='.$this->getArrConfig()['account'].'&script='.$this->getStrScriptId());
         $this->oauth = new Oauth($this->getArrConfig(), $this->getStrScriptId(), $this->getBaseUrl(), $this->getMethod());
         $tokenHeaders = [
             'Content-Type'=> 'application/json',
