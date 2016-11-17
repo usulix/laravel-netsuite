@@ -154,8 +154,8 @@ class Oauth
 
     public function setSignatureString()
     {
-        $this->signatureString = urlencode($this->getArrConfig()['consumerSecret']).
-            '&'.urlencode($this->getArrConfig()['tokenSecret']);
+        $this->signatureString = $this->getArrConfig()['consumerSecret'].
+            '&'.$this->getArrConfig()['tokenSecret'];
     }
 
     public function setOauthSignature()
