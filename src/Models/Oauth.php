@@ -147,15 +147,22 @@ class Oauth
     public function setBaseString()
     {
         $this->baseString=$this->getStrMethod()."&" . urlencode($this->getArrConfig()['host']) . "&" .
-            urlencode("script=" . $this->getStrScriptId()
+            urlencode("realm=" . $this->getArrConfig()['account']
+                . "&oauth_consumer_key=" . $this->getArrConfig()['consumerKey']
+                . "&oauth_token=" . $this->getArrConfig()['token']
+                . "&oauth_nonce=" . $this->getOauthNonce()
+                . "&oauth_timestamp=" . $this->getOauthTimestamp()
+                . "&oauth_signature_method=" . $this->getOauthSignatureMethod()
+                . "&oauth_version=" . $this->getOauthVersion()
+                . "&script=" . $this->getStrScriptId()
                 . "&deploy=1"
             );
     }
 
     public function setSignatureString()
     {
-        $this->signatureString = $this->getArrConfig()['consumerSecret'].
-            '&'.$this->getArrConfig()['tokenSecret'];
+        $this->signatureString = urlencode($this->getArrConfig()['consumerSecret']).
+            '&'.urlencode($this->getArrConfig()['tokenSecret']);
     }
 
     public function setOauthSignature()
