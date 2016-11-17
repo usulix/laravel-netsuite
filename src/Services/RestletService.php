@@ -181,12 +181,6 @@ class RestletService
             $this->arrConfig['role']);
     }
 
-    public function configToken()
-    {
-
-
-    }
-
     public function getNetSuiteData($strScriptId, $arrData = [])
     {
         $this->setStrScriptId($strScriptId);
@@ -214,7 +208,7 @@ class RestletService
     public function callWithToken()
     {
         $this->setBaseUrl($this->arrConfig['host'] . '?script='.$this->getStrScriptId().'&deploy=1');
-        $this->oauth = new Oauth($this->getArrConfig(), $this->getStrScriptId(), $this->getBaseUrl(), $this->getMethod());
+        $this->oauth = new Oauth($this->getArrConfig(), $this->getStrScriptId(), $this->getMethod());
         $tokenHeaders = [
             'Content-Type'=> 'application/json',
             'Content-length' => strlen(json_encode($this->getArrData())),

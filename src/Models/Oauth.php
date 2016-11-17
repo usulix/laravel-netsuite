@@ -179,7 +179,7 @@ class Oauth
 
     public function setBaseString()
     {
-        $this->baseString=$this->getStrMethod()."&" . urlencode($this->getStrBaseUrl()) . "&" .
+        $this->baseString=$this->getStrMethod()."&" . urlencode($this->getArrConfig()['host']) . "&" .
             urlencode("oauth_consumer_key=" . $this->getArrConfig()['consumerKey']
                 . "&oauth_nonce=" . $this->getOauthNonce()
                 . "&oauth_signature_method=" . $this->getOauthSignatureMethod()
@@ -188,6 +188,7 @@ class Oauth
                 . "&oauth_version=" . $this->getOauthVersion()
                 . "&realm=" . $this->getArrConfig()['account']
                 . "&script=" . $this->getStrScriptId()
+                . "&deploy = 1"
             );
     }
 
