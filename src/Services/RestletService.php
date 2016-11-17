@@ -208,8 +208,8 @@ class RestletService
             case "doubleDecode":
                 return json_decode(json_decode($b,  true), true);
                 break;
-            case "responseBody":
-                return json_decode(json_decode($b,  true), true)['body'];
+            case "responseData":
+                return json_decode(json_decode($b,  true), true)['data'];
                 break;
             default:
                 return $b;
