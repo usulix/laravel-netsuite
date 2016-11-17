@@ -169,7 +169,6 @@ class RestletService
         if (array_key_exists('password', $arrConfig)) {
             $this->configNlAuth();
         } else {
-            $this->configToken();
             $this->setBooUsingTokenAuth(true);
         }
     }
@@ -184,8 +183,8 @@ class RestletService
 
     public function configToken()
     {
-        $this->setBaseUrl($this->arrConfig['host'] . '?deploy=1&realm='.$this->getArrConfig()['account'].'script=');
-        $this->oauth = new Oauth($this->getArrConfig(), $this->getStrScriptId(), $this->getBaseUrl(), $this->getMethod());
+
+
     }
 
     public function getNetSuiteData($strScriptId, $arrData = [])
@@ -214,7 +213,8 @@ class RestletService
 
     public function callWithToken()
     {
-        $this->setBaseUrl($this->getBaseUrl() . $this->getStrScriptId());
+        $this->setBaseUrl($this->arrConfig['host'] . '?deploy=1&realm='.$this->getArrConfig()['account'].'script='.$this->getStrScriptId());
+        $this->oauth = new Oauth($this->getArrConfig(), $this->getStrScriptId(), $this->getBaseUrl(), $this->getMethod());
         $tokenHeaders = [
             'Content-Type'=> 'application/json',
             'Content-length' => strlen(json_encode($this->getArrData())),
