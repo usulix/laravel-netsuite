@@ -155,7 +155,7 @@ class Oauth
                 . "&oauth_version=" . $this->getOauthVersion()
                 . "&realm=" . $this->getArrConfig()['account']
                 . "&script=" . $this->getStrScriptId()
-                . "&deploy = 1"
+                . "&deploy=1"
             );
     }
 
