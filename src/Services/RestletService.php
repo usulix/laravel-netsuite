@@ -1,6 +1,7 @@
 <?php namespace Usulix\NetSuite\Services;
 
 use GuzzleHttp\Client;
+use Usulix\NetSuite\Models\Oauth;
 
 class RestletService
 {
@@ -16,6 +17,7 @@ class RestletService
         'Cache-Control' => 'no-cache',
         'Pragma' => 'no-cache'
     ];
+    protected $oauth;
     /**
      * @return mixed
      */
@@ -180,6 +182,12 @@ class RestletService
             $this->arrConfig['role']);
     }
 
+    public function configToken()
+    {
+        $this->setBaseUrl($this->arrConfig['host'] . '?deploy=1&realm='.$this->getArrConfig()['account'].'script=');
+        $this->oauth = new Oauth($this->getArrConfig(), $this->getStrScriptId(), $this->getBaseUrl(), $this->getMethod());
+    }
+
     public function getNetSuiteData($strScriptId, $arrData = [])
     {
         $this->setStrScriptId($strScriptId);
@@ -201,6 +209,28 @@ class RestletService
             'json' => $this->getArrData()
         ]);
         $b = $response->getBody();
+        return $this->processBody($b);
+    }
+
+    public function callWithToken()
+    {
+        $this->setBaseUrl($this->getBaseUrl() . $this->getStrScriptId());
+        $tokenHeaders = [
+            'Content-Type'=> 'application/json',
+            'Content-length' => strlen(json_encode($this->getArrData())),
+            'Authorization' => $this->oauth->getOauthHeader()
+        ];
+        $response = (new Client())->request($this->getMethod(), $this->getBaseUrl(), [
+            'headers' => $tokenHeaders,
+            'json' => $this->getArrData()
+        ]);
+        $b = $response->getBody();
+        return $this->processBody($b);
+
+    }
+
+    public function processBody($b)
+    {
         switch($this->getReturnProcessing()){
             case "singleDecode":
                 return json_decode($b, true);
