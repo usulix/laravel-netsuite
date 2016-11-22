@@ -10,7 +10,7 @@ API for targeting NetSuite RESTlets
 ##Installation
 
 ```
-    composer require usulix/laravel-netsuite --save
+    composer require usulix/laravel-netsuite:dev-master
 ```
 
 add one or both service providers to config/app.php
