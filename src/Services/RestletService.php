@@ -193,11 +193,11 @@ class RestletService
 
     public function callWithNlAuth()
     {
-        $this->setBaseUrl($this->getBaseUrl() . $this->getStrScriptId());
+        $RESTlet = $this->getBaseUrl() . $this->getStrScriptId();
         $headers = $this->getNlauthHeaders();
         $headers['Content-length'] = strlen(json_encode($this->getArrData()));
         $headers['Authorization'] = $this->getNlauth();
-        $response = (new Client())->request($this->getMethod(), $this->getBaseUrl(), [
+        $response = (new Client())->request($this->getMethod(), $RESTlet, [
             'headers' => $headers,
             'json' => $this->getArrData()
         ]);
@@ -207,14 +207,14 @@ class RestletService
 
     public function callWithToken()
     {
-        $this->setBaseUrl($this->arrConfig['host'] . '?script='.$this->getStrScriptId().'&deploy=1&realm='.$this->getArrConfig()['account']);
+        $RESTlet = $this->arrConfig['host'] . '?script='.$this->getStrScriptId().'&deploy=1&realm='.$this->getArrConfig()['account'];
         $this->oauth = new Oauth($this->getArrConfig(), $this->getStrScriptId(), $this->getMethod());
         $tokenHeaders = [
             'Content-Type'=> 'application/json',
             'Content-length' => strlen(json_encode($this->getArrData())),
             'Authorization' => $this->oauth->getOauthHeader()
         ];
-        $response = (new Client())->request($this->getMethod(), $this->getBaseUrl(), [
+        $response = (new Client())->request($this->getMethod(), $RESTlet, [
             'headers' => $tokenHeaders,
             'json' => $this->getArrData()
         ]);
