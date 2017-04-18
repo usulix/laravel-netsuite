@@ -2,7 +2,7 @@
     "name": "usulix/laravel-netsuite",
     "description": "A laravel5 wrapper around ryanwinchester/netsuite-php",
     "require": {
-        "laravel/framework": "5.4.*",
+        "laravel/framework": "^5",
         "ryanwinchester/netsuite-php": "2016.1.*",
         "guzzlehttp/guzzle": "^6.2"
     },
