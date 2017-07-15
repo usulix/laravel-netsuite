@@ -195,12 +195,21 @@ class RestletService
     {
         $RESTlet = $this->getBaseUrl() . $this->getStrScriptId();
         $headers = $this->getNlauthHeaders();
-        $headers['Content-length'] = strlen(json_encode($this->getArrData()));
         $headers['Authorization'] = $this->getNlauth();
-        $response = (new Client())->request($this->getMethod(), $RESTlet, [
-            'headers' => $headers,
-            'json' => $this->getArrData()
-        ]);
+        if($this->getMethod() != "GET") {
+            $headers['Content-length'] = strlen(json_encode($this->getArrData()));
+            $response = (new Client())->request($this->getMethod(), $RESTlet, [
+                'headers' => $headers,
+                'json' => $this->getArrData()
+            ]);
+        } else {
+            foreach($this->arrData as $k=>$v){
+                $RESTlet .= "&$k=$v";
+            }
+            $response = (new Client())->request($this->getMethod(), $RESTlet, [
+                'headers' => $headers
+            ]);
+        }
         $b = $response->getBody();
         return $this->processBody($b);
     }
@@ -211,13 +220,22 @@ class RestletService
         $this->oauth = new Oauth($this->getArrConfig(), $this->getStrScriptId(), $this->getMethod());
         $tokenHeaders = [
             'Content-Type'=> 'application/json',
-            'Content-length' => strlen(json_encode($this->getArrData())),
             'Authorization' => $this->oauth->getOauthHeader()
         ];
-        $response = (new Client())->request($this->getMethod(), $RESTlet, [
-            'headers' => $tokenHeaders,
-            'json' => $this->getArrData()
-        ]);
+        if($this->getMethod() != "GET") {
+            $tokenHeaders['Content-length'] = strlen(json_encode($this->getArrData()));
+            $response = (new Client())->request($this->getMethod(), $RESTlet, [
+                'headers' => $tokenHeaders,
+                'json' => $this->getArrData()
+            ]);
+        } else {
+            foreach($this->arrData as $k=>$v){
+                $RESTlet .= "&$k=$v";
+            }
+            $response = (new Client())->request($this->getMethod(), $RESTlet, [
+                'headers' => $tokenHeaders
+            ]);
+        }
         $b = $response->getBody();
         return $this->processBody($b);
 
