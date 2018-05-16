@@ -1,5 +1,6 @@
 <?php namespace Usulix\NetSuite\Providers;
 
+use Monolog\Logger;
 use Usulix\NetSuite\Services\NetSuiteApi;
 use Usulix\NetSuite\Services\ConfigApiService;
 use Illuminate\Support\ServiceProvider;
@@ -17,7 +18,7 @@ class NetSuiteApiProvider extends ServiceProvider
      */
     public function register()
     {
-        $this->logger = \Log::getMonolog();
+        $this->logger = new Logger('name');
         $this->app->singleton('Usulix\NetSuite\NetSuiteApi', function ($app) {
             return new NetSuiteApi($this->logger, (new ConfigApiService($this->logger))->getConfig());
         });
