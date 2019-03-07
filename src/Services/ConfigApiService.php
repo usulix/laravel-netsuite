@@ -36,7 +36,7 @@ class ConfigApiService
     public function checkFields($strType)
     {
         foreach ($this->$strType as $strField) {
-            if (!getenv($strField)) {
+            if (!env($strField)) {
                 return false;
             }
         }
@@ -50,35 +50,35 @@ class ConfigApiService
 
             return false;
         }
-        if (getenv('NETSUITE_PASSWORD')) {
+        if (env('NETSUITE_PASSWORD')) {
             $arrConfig = [
-                'host' => getenv('NETSUITE_RESTLET_HOST'),
-                'account' => getenv('NETSUITE_ACCOUNT'),
-                'email' => getenv('NETSUITE_EMAIL'),
-                'password' => getenv('NETSUITE_PASSWORD'),
-                'role' => getenv('NETSUITE_ROLE'),
+                'host' => env('NETSUITE_RESTLET_HOST'),
+                'account' => env('NETSUITE_ACCOUNT'),
+                'email' => env('NETSUITE_EMAIL'),
+                'password' => env('NETSUITE_PASSWORD'),
+                'role' => env('NETSUITE_ROLE'),
             ];
         } else {
 
             $arrConfig = [
-                'host' => getenv('NETSUITE_RESTLET_HOST'),
-                'account' => getenv('NETSUITE_ACCOUNT'),
-                'consumerKey' => getenv('NETSUITE_CONSUMER_KEY'),
-                'consumerSecret' => getenv('NETSUITE_CONSUMER_SECRET'),
-                'token' => getenv('NETSUITE_TOKEN'),
-                'tokenSecret' => getenv('NETSUITE_TOKEN_SECRET')
+                'host' => env('NETSUITE_RESTLET_HOST'),
+                'account' => env('NETSUITE_ACCOUNT'),
+                'consumerKey' => env('NETSUITE_CONSUMER_KEY'),
+                'consumerSecret' => env('NETSUITE_CONSUMER_SECRET'),
+                'token' => env('NETSUITE_TOKEN'),
+                'tokenSecret' => env('NETSUITE_TOKEN_SECRET')
             ];
-            if (getenv('NETSUITE_SIGNATURE_ALGORITHM')) {
-                $arrConfig['signatureAlgorithm'] = getenv('NETSUITE_SIGNATURE_ALGORITHM');
+            if (env('NETSUITE_SIGNATURE_ALGORITHM')) {
+                $arrConfig['signatureAlgorithm'] = env('NETSUITE_SIGNATURE_ALGORITHM');
             } else {
                 $arrConfig['signatureAlgorithm'] = 'HMAC-SHA256';
             }
         }
-        if (getenv('NETSUITE_LOGGING')) {
-            $arrConfig['logging'] = getenv('NETSUITE_LOGGING');
+        if (env('NETSUITE_LOGGING')) {
+            $arrConfig['logging'] = env('NETSUITE_LOGGING');
         }
-        if (getenv('NETSUITE_LOG_PATH')) {
-            $arrConfig['log_path'] = getenv('NETSUITE_LOG_PATH');
+        if (env('NETSUITE_LOG_PATH')) {
+            $arrConfig['log_path'] = env('NETSUITE_LOG_PATH');
         }
         return $arrConfig;
     }
