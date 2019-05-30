@@ -1,4 +1,4 @@
-#usulix/laravel-netsuite
+# usulix/laravel-netsuite
 
 [ryanwinchester/netsuite-php](https://github.com/ryanwinchester/netsuite-php) is a php package which 
 wraps the [NetSuite PHP Toolkit](http://www.netsuite.com/portal/developers/resources/suitetalk-sample-applications.shtml)
@@ -7,7 +7,7 @@ in an easier to use API. ryanwinchester/netsuite-php targets NetSuite WebService
 This package wraps ryanwinchester/netsuite-php in a standard Laravel 5 package and also adds a basic
 API for targeting NetSuite RESTlets
 
-##Installation
+## Installation
 
 ```
     composer require usulix/laravel-netsuite:dev-master
@@ -29,7 +29,7 @@ Interface
 
 NetSuiteApiProvider - provides access to the RESTlet API
 
-##Set Configuration in .env
+## Set Configuration in .env
   using NlAuth (account, email, password and role required for either WebServices or RESTlets)
   
   _note_ (NETSUITE_ENDPOINT, NETSUITE_WEBSERVICES_HOST, NETSUITE_APP_ID) needed for WebServices
@@ -76,7 +76,7 @@ My experience with NetSuite is based upon a single integration, so coverage of a
 probably not happening very well initially, but the project is public in order to obtain help in 
 developing a more useful and time-saving solution.
 
-##Instantiate an instance of the service and make NetSuite call using the service
+## Instantiate an instance of the service and make NetSuite call using the service
 
 using a WebService
 
