@@ -12,7 +12,7 @@ API for targeting NetSuite RESTlets
 Will use the latest `ryanwinchester/netsuite-php` version up to `v2018.2.0` 
 
 ```
-    composer require usulix/laravel-netsuite:dev-master
+    composer require usulix/laravel-netsuite
 ```
 if an older version say `v2017.1.1` or `v2016.2.0` is required
  ```
