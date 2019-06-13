@@ -1,31 +1,35 @@
-<?php namespace Usulix\NetSuite\Providers;
+<?php
 
-use Monolog\Logger;
-use Usulix\NetSuite\Services\NetSuiteService;
-use Usulix\NetSuite\Services\ConfigServiceService;
+namespace Usulix\NetSuite\Providers;
+
 use Illuminate\Support\ServiceProvider;
+use NetSuite\NetSuiteService;
+use Usulix\NetSuite\Services\ConfigService;
 
 class NetSuiteServiceProvider extends ServiceProvider
 {
 
-    protected $defer = true;
-    protected $logger;
-
     /**
-     * Register bindings in the container.
+     * Register a singleton binding for 'NetSuiteWebService' directly to the
+     * 'NetSuite\NetSuiteService' in the container.
      *
      * @return void
      */
-    public function register()
+    public function register(): void
     {
-        $this->logger = new Logger('name');
-        $this->app->singleton('Usulix\NetSuite\NetSuiteService', function ($app) {
-            return new NetSuiteService($this->logger, (new ConfigServiceService($this->logger))->getConfig());
+        $this->app->singleton('NetSuiteWebService', static function ($app) {
+            return new NetSuiteService((new ConfigService())->getConfig());
         });
     }
 
-    public function provides()
+    /**
+     * @return array
+     */
+    public function provides(): array
     {
-        return ['Usulix\NetSuite\NetSuiteService'];
+        return [
+            'NetSuiteWebService'
+        ];
     }
+
 }

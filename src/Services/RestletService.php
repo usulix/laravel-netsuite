@@ -1,4 +1,6 @@
-<?php namespace Usulix\NetSuite\Services;
+<?php
+
+namespace Usulix\NetSuite\Services;
 
 use GuzzleHttp\Client;
 use Usulix\NetSuite\Models\Oauth;
@@ -7,7 +9,7 @@ class RestletService
 {
     protected $arrConfig, $arrData, $strScriptId;
     protected $booUsingTokenAuth = false;
-    protected $returnProcessing = "raw";
+    protected $returnProcessing = 'raw';
     protected $method = 'POST';
     protected $baseUrl;
     protected $nlauth;
@@ -18,6 +20,22 @@ class RestletService
         'Pragma' => 'no-cache'
     ];
     protected $oauth;
+
+    /**
+     * RestletService constructor.
+     *
+     * @param $arrConfig
+     */
+    public function __construct($arrConfig)
+    {
+        $this->setArrConfig($arrConfig);
+        if (array_key_exists('password', $arrConfig)) {
+            $this->configNlAuth();
+        } else {
+            $this->setBooUsingTokenAuth(true);
+        }
+    }
+
     /**
      * @return mixed
      */
@@ -27,9 +45,9 @@ class RestletService
     }
 
     /**
-     * @param mixed $arrConfig
+     * @param  mixed  $arrConfig
      */
-    public function setArrConfig($arrConfig)
+    public function setArrConfig($arrConfig): void
     {
         $this->arrConfig = $arrConfig;
     }
@@ -43,9 +61,9 @@ class RestletService
     }
 
     /**
-     * @param mixed $arrData
+     * @param  mixed  $arrData
      */
-    public function setArrData($arrData)
+    public function setArrData($arrData): void
     {
         $this->arrData = $arrData;
     }
@@ -59,9 +77,9 @@ class RestletService
     }
 
     /**
-     * @param mixed $strScriptId
+     * @param  mixed  $strScriptId
      */
-    public function setStrScriptId($strScriptId)
+    public function setStrScriptId($strScriptId): void
     {
         $this->strScriptId = $strScriptId;
     }
@@ -69,15 +87,15 @@ class RestletService
     /**
      * @return boolean
      */
-    public function isBooUsingTokenAuth()
+    public function isBooUsingTokenAuth(): bool
     {
         return $this->booUsingTokenAuth;
     }
 
     /**
-     * @param boolean $booUsingTokenAuth
+     * @param  boolean  $booUsingTokenAuth
      */
-    public function setBooUsingTokenAuth($booUsingTokenAuth)
+    public function setBooUsingTokenAuth($booUsingTokenAuth): void
     {
         $this->booUsingTokenAuth = $booUsingTokenAuth;
     }
@@ -85,15 +103,15 @@ class RestletService
     /**
      * @return string
      */
-    public function getMethod()
+    public function getMethod(): string
     {
         return $this->method;
     }
 
     /**
-     * @param string $method
+     * @param  string  $method
      */
-    public function setMethod($method)
+    public function setMethod($method): void
     {
         $this->method = $method;
     }
@@ -107,9 +125,9 @@ class RestletService
     }
 
     /**
-     * @param mixed $baseUrl
+     * @param  mixed  $baseUrl
      */
-    public function setBaseUrl($baseUrl)
+    public function setBaseUrl($baseUrl): void
     {
         $this->baseUrl = $baseUrl;
     }
@@ -123,9 +141,9 @@ class RestletService
     }
 
     /**
-     * @param mixed $nlauth
+     * @param  mixed  $nlauth
      */
-    public function setNlauth($nlauth)
+    public function setNlauth($nlauth): void
     {
         $this->nlauth = $nlauth;
     }
@@ -133,54 +151,51 @@ class RestletService
     /**
      * @return array
      */
-    public function getNlauthHeaders()
+    public function getNlauthHeaders(): array
     {
         return $this->nlauthHeaders;
     }
 
     /**
-     * @param array $nlauthHeaders
+     * @param  array  $nlauthHeaders
      */
-    public function setNlauthHeaders($nlauthHeaders)
+    public function setNlauthHeaders($nlauthHeaders): void
     {
-        $this->setNlauthHeaders($nlauthHeaders);
+        $this->setNlauthHeaders = $nlauthHeaders;
     }
 
     /**
      * @return string
      */
-    public function getReturnProcessing()
+    public function getReturnProcessing(): string
     {
         return $this->returnProcessing;
     }
 
     /**
-     * @param string $returnProcessing
+     * @param  string  $returnProcessing
      */
-    public function setReturnProcessing($returnProcessing)
+    public function setReturnProcessing($returnProcessing): void
     {
         $this->returnProcessing = $returnProcessing;
     }
 
-    public function __construct($arrConfig)
+    /**
+     *
+     */
+    public function configNlAuth(): void
     {
-        $this->setArrConfig($arrConfig);
-
-        if (array_key_exists('password', $arrConfig)) {
-            $this->configNlAuth();
-        } else {
-            $this->setBooUsingTokenAuth(true);
-        }
-    }
-
-    public function configNlAuth()
-    {
-        $this->setBaseUrl($this->arrConfig['host'] . '?deploy=1&script=');
-        $this->setNlauth('NLAuth nlauth_account=' . $this->arrConfig['account'] . ',nlauth_email=' .
-            $this->arrConfig['email'] . ',nlauth_signature=' . $this->arrConfig['password'] . ',nlauth_role=' .
+        $this->setBaseUrl($this->arrConfig['host'].'?deploy=1&script=');
+        $this->setNlauth('NLAuth nlauth_account='.$this->arrConfig['account'].',nlauth_email='.
+            $this->arrConfig['email'].',nlauth_signature='.$this->arrConfig['password'].',nlauth_role='.
             $this->arrConfig['role']);
     }
 
+    /**
+     * @param $strScriptId
+     * @param  array  $arrData
+     * @return mixed
+     */
     public function getNetSuiteData($strScriptId, $arrData = [])
     {
         $this->setStrScriptId($strScriptId);
@@ -191,19 +206,22 @@ class RestletService
         return $this->callWithNlAuth();
     }
 
+    /**
+     * @return mixed
+     */
     public function callWithNlAuth()
     {
-        $RESTlet = $this->getBaseUrl() . $this->getStrScriptId();
+        $RESTlet = $this->getBaseUrl().$this->getStrScriptId();
         $headers = $this->getNlauthHeaders();
         $headers['Authorization'] = $this->getNlauth();
-        if($this->getMethod() != "GET") {
+        if ($this->getMethod() !== 'GET') {
             $headers['Content-length'] = strlen(json_encode($this->getArrData()));
             $response = (new Client())->request($this->getMethod(), $RESTlet, [
                 'headers' => $headers,
                 'json' => $this->getArrData()
             ]);
         } else {
-            foreach($this->arrData as $k=>$v){
+            foreach ($this->arrData as $k => $v) {
                 $RESTlet .= "&$k=$v";
             }
             $response = (new Client())->request($this->getMethod(), $RESTlet, [
@@ -214,22 +232,25 @@ class RestletService
         return $this->processBody($b);
     }
 
+    /**
+     * @return mixed
+     */
     public function callWithToken()
     {
-        $RESTlet = $this->arrConfig['host'] . '?script='.$this->getStrScriptId().'&deploy=1&realm='.$this->getArrConfig()['account'];
+        $RESTlet = $this->arrConfig['host'].'?script='.$this->getStrScriptId().'&deploy=1&realm='.$this->getArrConfig()['account'];
         $this->oauth = new Oauth($this->getArrConfig(), $this->getStrScriptId(), $this->getMethod());
         $tokenHeaders = [
-            'Content-Type'=> 'application/json',
+            'Content-Type' => 'application/json',
             'Authorization' => $this->oauth->getOauthHeader()
         ];
-        if($this->getMethod() != "GET") {
+        if ($this->getMethod() !== 'GET') {
             $tokenHeaders['Content-length'] = strlen(json_encode($this->getArrData()));
             $response = (new Client())->request($this->getMethod(), $RESTlet, [
                 'headers' => $tokenHeaders,
                 'json' => $this->getArrData()
             ]);
         } else {
-            foreach($this->arrData as $k=>$v){
+            foreach ($this->arrData as $k => $v) {
                 $RESTlet .= "&$k=$v";
             }
             $response = (new Client())->request($this->getMethod(), $RESTlet, [
@@ -238,23 +259,27 @@ class RestletService
         }
         $b = $response->getBody();
         return $this->processBody($b);
-
     }
 
+    /**
+     * @param $b
+     * @return mixed
+     */
     public function processBody($b)
     {
-        switch($this->getReturnProcessing()){
-            case "singleDecode":
+        switch ($this->getReturnProcessing()) {
+            case 'singleDecode':
                 return json_decode($b, true);
                 break;
-            case "doubleDecode":
-                return json_decode(json_decode($b,  true), true);
+            case 'doubleDecode':
+                return json_decode(json_decode($b, true), true);
                 break;
-            case "responseData":
-                return json_decode(json_decode($b,  true), true)['data'];
+            case 'responseData':
+                return json_decode(json_decode($b, true), true)['data'];
                 break;
             default:
                 return $b;
         }
     }
+
 }

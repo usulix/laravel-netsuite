@@ -9,11 +9,22 @@ API for targeting NetSuite RESTlets
 
 ## Installation
 
+Will use the latest `ryanwinchester/netsuite-php` version up to `v2018.2.0` 
+
 ```
     composer require usulix/laravel-netsuite:dev-master
 ```
+if an older version say `v2017.1.1` or `v2016.2.0` is required
+ ```
+     composer require ryanwinchester/netsuite-php v2017.1.1
+ ```
 
-add one or both service providers to config/app.php
+
+Register the package
+
+- Laravel 5.5 and up Uses package auto discovery feature, no need to edit the `config/app.php` file.
+
+- Laravel 5.4 and below Register the package with laravel in `config/app.php` under `providers` with the following:
 
 ```
    'providers' => [
@@ -37,31 +48,33 @@ NetSuiteApiProvider - provides access to the RESTlet API
   _note_ (NETSUITE_RESTLET_HOST) needed for RESTlets
   
 ```
-  NETSUITE_ENDPOINT=2016_1 
-  NETSUITE_WEBSERVICES_HOST=https://webservices.sandbox.netsuite.com
-  NETSUITE_RESTLET_HOST=https://rest.sandbox.netsuite.com/app/site/hosting/restlet.nl
+  NETSUITE_ENDPOINT=2018_2 
+  NETSUITE_HOST=https://webservices.sandbox.netsuite.com
   NETSUITE_ACCOUNT=123456
   NETSUITE_EMAIL=sample@sample.com
   NETSUITE_PASSWORD=sup3rs3cr3t
   NETSUITE_ROLE=3
   NETSUITE_APP_ID=FFFFFFFF-1111-AAAA-9999-000000000000
 ```
+or
+```
+  NETSUITE_HOST=https://rest.sandbox.netsuite.com/app/site/hosting/restlet.nl
+```
 
 using Token (account, consumer_key, consumer_secret, token, token_secret required for either WebServices or RESTlets)
   
-  _note_ (NETSUITE_ENDPOINT, NETSUITE_WEBSERVICES_HOST) needed for WebServices
-  
-  _note_ (NETSUITE_RESTLET_HOST) needed for RESTlets
-  
 ```
   NETSUITE_ENDPOINT=2016_1 
-  NETSUITE_WEBSERVICES_HOST=https://webservices.sandbox.netsuite.com
-  NETSUITE_RESTLET_HOST=https://rest.sandbox.netsuite.com/app/site/hosting/restlet.nl
+  NETSUITE_HOST=https://webservices.sandbox.netsuite.com
   NETSUITE_ACCOUNT=123456
   NETSUITE_CONSUMER_KEY=aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
   NETSUITE_CONSUMER_SECRET=bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb
   NETSUITE_TOKEN=cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc
   NETSUITE_TOKEN_SECRET=dddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd
+```
+or
+```
+  NETSUITE_HOST=https://rest.sandbox.netsuite.com/app/site/hosting/restlet.nl
 ```
 
 Add values to .env which correspond to either token based authentication OR NlAuth based authentication but not both!
@@ -84,7 +97,7 @@ using a WebService
   use NetSuite\Classes\GetRequest;
   use NetSuite\Classes\RecordRef;
   
-  $myWebService =  app('Usulix\NetSuite\NetSuiteService')->getService();
+  $myWebService =  app('NetSuiteWebService');
   
   $request = new GetRequest();
   $request->baseRef = new RecordRef();
@@ -104,7 +117,7 @@ using a WebService
 using a RESTlet
 
 ```
-    $myRESTletService = app('Usulix\NetSuite\NetSuiteApi')->getService();
+    $myRESTletService = app('NetSuiteApiService');
     
     /**
     * You can set processing on the response Body returned

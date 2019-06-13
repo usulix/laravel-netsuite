@@ -3,13 +3,27 @@
     "description": "A laravel5 wrapper around ryanwinchester/netsuite-php",
     "require": {
         "laravel/framework": "^5",
-        "ryanwinchester/netsuite-php": "2016.1.*",
+        "ryanwinchester/netsuite-php": "^2016.1|^v2017|^v2018",
         "guzzlehttp/guzzle": "^6.2"
+    },
+    "require-dev": {
+        "roave/security-advisories": "dev-master"
+    },
+    "replace": {
+        "paragonie/random_compat": "*"
     },
     "autoload": {
         "psr-4": {
             "Usulix\\NetSuite\\": "src"
         }
     },
-    "license": "MIT"
+    "license": "MIT",
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Usulix\\NetSuite\\Providers\\NetSuiteServiceProvider",
+                "Usulix\\NetSuite\\Providers\\NetSuiteApiProvider"
+            ]
+        }
+    }
 }

@@ -1,32 +1,33 @@
-<?php namespace Usulix\NetSuite\Providers;
+<?php
 
-use Monolog\Logger;
-use Usulix\NetSuite\Services\NetSuiteApi;
-use Usulix\NetSuite\Services\ConfigApiService;
+namespace Usulix\NetSuite\Providers;
+
 use Illuminate\Support\ServiceProvider;
+use Usulix\NetSuite\Services\ConfigService;
+use Usulix\NetSuite\Services\RestletService;
 
 class NetSuiteApiProvider extends ServiceProvider
 {
-
-    protected $defer = true;
-    protected $logger;
 
     /**
      * Register bindings in the container.
      *
      * @return void
      */
-    public function register()
+    public function register(): void
     {
-        $this->logger = new Logger('name');
-        $this->app->singleton('Usulix\NetSuite\NetSuiteApi', function ($app) {
-            return new NetSuiteApi($this->logger, (new ConfigApiService($this->logger))->getConfig());
+        $this->app->singleton('NetSuiteApiService', static function ($app) {
+            return new RestletService((new ConfigService())->getConfig());
         });
     }
 
-    public function provides()
+    /**
+     * @return array
+     */
+    public function provides(): array
     {
-        return ['Usulix\NetSuite\NetSuiteApi'];
+        return ['NetSuiteApiService'];
     }
+
 }
 
