@@ -47,7 +47,7 @@ class RestletService
     /**
      * @param  mixed  $arrConfig
      */
-    public function setArrConfig($arrConfig): void
+    public function setArrConfig($arrConfig)
     {
         $this->arrConfig = $arrConfig;
     }
@@ -63,7 +63,7 @@ class RestletService
     /**
      * @param  mixed  $arrData
      */
-    public function setArrData($arrData): void
+    public function setArrData($arrData)
     {
         $this->arrData = $arrData;
     }
@@ -79,7 +79,7 @@ class RestletService
     /**
      * @param  mixed  $strScriptId
      */
-    public function setStrScriptId($strScriptId): void
+    public function setStrScriptId($strScriptId)
     {
         $this->strScriptId = $strScriptId;
     }
@@ -87,7 +87,7 @@ class RestletService
     /**
      * @return boolean
      */
-    public function isBooUsingTokenAuth(): bool
+    public function isBooUsingTokenAuth()
     {
         return $this->booUsingTokenAuth;
     }
@@ -95,7 +95,7 @@ class RestletService
     /**
      * @param  boolean  $booUsingTokenAuth
      */
-    public function setBooUsingTokenAuth($booUsingTokenAuth): void
+    public function setBooUsingTokenAuth($booUsingTokenAuth)
     {
         $this->booUsingTokenAuth = $booUsingTokenAuth;
     }
@@ -103,7 +103,7 @@ class RestletService
     /**
      * @return string
      */
-    public function getMethod(): string
+    public function getMethod()
     {
         return $this->method;
     }
@@ -111,7 +111,7 @@ class RestletService
     /**
      * @param  string  $method
      */
-    public function setMethod($method): void
+    public function setMethod($method)
     {
         $this->method = $method;
     }
@@ -127,7 +127,7 @@ class RestletService
     /**
      * @param  mixed  $baseUrl
      */
-    public function setBaseUrl($baseUrl): void
+    public function setBaseUrl($baseUrl)
     {
         $this->baseUrl = $baseUrl;
     }
@@ -143,7 +143,7 @@ class RestletService
     /**
      * @param  mixed  $nlauth
      */
-    public function setNlauth($nlauth): void
+    public function setNlauth($nlauth)
     {
         $this->nlauth = $nlauth;
     }
@@ -151,7 +151,7 @@ class RestletService
     /**
      * @return array
      */
-    public function getNlauthHeaders(): array
+    public function getNlauthHeaders()
     {
         return $this->nlauthHeaders;
     }
@@ -159,7 +159,7 @@ class RestletService
     /**
      * @param  array  $nlauthHeaders
      */
-    public function setNlauthHeaders($nlauthHeaders): void
+    public function setNlauthHeaders($nlauthHeaders)
     {
         $this->setNlauthHeaders = $nlauthHeaders;
     }
@@ -167,7 +167,7 @@ class RestletService
     /**
      * @return string
      */
-    public function getReturnProcessing(): string
+    public function getReturnProcessing()
     {
         return $this->returnProcessing;
     }
@@ -175,7 +175,7 @@ class RestletService
     /**
      * @param  string  $returnProcessing
      */
-    public function setReturnProcessing($returnProcessing): void
+    public function setReturnProcessing($returnProcessing)
     {
         $this->returnProcessing = $returnProcessing;
     }
@@ -183,7 +183,7 @@ class RestletService
     /**
      *
      */
-    public function configNlAuth(): void
+    public function configNlAuth()
     {
         $this->setBaseUrl($this->arrConfig['host'].'?deploy=1&script=');
         $this->setNlauth('NLAuth nlauth_account='.$this->arrConfig['account'].',nlauth_email='.

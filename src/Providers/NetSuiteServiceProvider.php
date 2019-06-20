@@ -15,7 +15,7 @@ class NetSuiteServiceProvider extends ServiceProvider
      *
      * @return void
      */
-    public function register(): void
+    public function register()
     {
         $this->app->singleton('NetSuiteWebService', static function ($app) {
             return new NetSuiteService((new ConfigService())->getConfig());
@@ -25,7 +25,7 @@ class NetSuiteServiceProvider extends ServiceProvider
     /**
      * @return array
      */
-    public function provides(): array
+    public function provides()
     {
         return [
             'NetSuiteWebService'

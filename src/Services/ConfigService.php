@@ -17,7 +17,7 @@ class ConfigService
      *
      * @return array
      */
-    public function getConfig(): array
+    public function getConfig()
     {
         $config = array(
             'endpoint' => getenv('NETSUITE_ENDPOINT') ?: '2016_1',
@@ -33,7 +33,7 @@ class ConfigService
             'app_id' => getenv('NETSUITE_APP_ID'),
             'logging' => getenv('NETSUITE_LOGGING'),
             'log_path' => getenv('NETSUITE_LOG_PATH'),
-            'signatureAlgorithm' => getenv('NETSUITE_HASH_TYPE') ?: 'sha256'
+            'signatureAlgorithm' => getenv('NETSUITE_HASH_TYPE') ?: 'sha256',
         );
         return $config;
     }

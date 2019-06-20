@@ -24,7 +24,7 @@ class NetSuiteApiProvider extends ServiceProvider
     /**
      * @return array
      */
-    public function provides(): array
+    public function provides()
     {
         return ['NetSuiteApiService'];
     }
