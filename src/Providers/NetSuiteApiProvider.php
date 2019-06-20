@@ -14,7 +14,7 @@ class NetSuiteApiProvider extends ServiceProvider
      *
      * @return void
      */
-    public function register(): void
+    public function register()
     {
         $this->app->singleton('NetSuiteApiService', static function ($app) {
             return new RestletService((new ConfigService())->getConfig());
