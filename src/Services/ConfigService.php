@@ -17,11 +17,13 @@ class ConfigService
      *
      * @return array
      */
-    public function getConfig()
+
+  private function getEnvConfig()
     {
         $config = array(
             'endpoint' => getenv('NETSUITE_ENDPOINT') ?: '2016_1',
-            'host' => getenv('NETSUITE_HOST'),
+            'host_webservices' => getenv('NETSUITE_WEBSERVICES_HOST'),
+            'host_restlet' => getenv('NETSUITE_RESTLET_HOST'),
             'email' => getenv('NETSUITE_EMAIL'),
             'password' => getenv('NETSUITE_PASSWORD'),
             'role' => getenv('NETSUITE_ROLE'),
@@ -36,6 +38,48 @@ class ConfigService
             'signatureAlgorithm' => getenv('NETSUITE_HASH_TYPE') ?: 'sha256',
         );
         return $config;
+    }
+
+    /**
+     * Return the Restlet config array
+     *
+     * @return array
+     */
+    public function getRestletConfig()
+    {
+        // Grab all the current ENV settings
+        $envConfig = $this->getEnvConfig();
+        // Check to see if 'host_restlet' is set else use new account specific URL
+        if (!empty($envConfig['host_restlet'])) {
+            $envConfig['host'] = $envConfig['host_restlet'];
+        } else {
+            // Detail auto url from account name
+            $envConfig['host'] = 'https://'.$envConfig['account'].'.restlets.api.netsuite.com'.'/app/site/hosting/restlet.nl';
+        }
+        // Remove other hosts before returning, in case of future clashes
+        unset($envConfig['host_restlet'], $envConfig['host_webservices']);
+        return $$envConfig;
+    }
+
+    /**
+     * Return the Web Services config array
+     *
+     * @return array
+     */
+    public function getWebservicesConfig()
+    {
+        // Grab all the current ENV settings
+        $envConfig = $this->getEnvConfig();
+        // Check to see if 'host_restlet' is set else use new account specific URL
+        if (!empty($envConfig['host_webservices'])) {
+            $envConfig['host'] = $envConfig['host_webservices'];
+        } else {
+            // Detail auto url from account name
+            $envConfig['host'] = 'https://'.$envConfig['account'].'.suitetalk.api.netsuite.com';
+        }
+        // Remove other hosts before returning, in case of future clashes
+        unset($envConfig['host_restlet'], $envConfig['host_webservices']);
+        return $$envConfig;
     }
 
 }

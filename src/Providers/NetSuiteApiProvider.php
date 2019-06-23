@@ -10,14 +10,14 @@ class NetSuiteApiProvider extends ServiceProvider
 {
 
     /**
-     * Register bindings in the container.
+     * Register a singleton binding for 'NetSuiteApiService' in the APP container.
      *
      * @return void
      */
     public function register()
     {
         $this->app->singleton('NetSuiteApiService', static function ($app) {
-            return new RestletService((new ConfigService())->getConfig());
+            return new RestletService((new ConfigService())->getRestletConfig());
         });
     }
 
@@ -30,4 +30,3 @@ class NetSuiteApiProvider extends ServiceProvider
     }
 
 }
-
