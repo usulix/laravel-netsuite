@@ -79,7 +79,7 @@ class ConfigService
         }
         // Remove other hosts before returning, in case of future clashes
         unset($envConfig['host_restlet'], $envConfig['host_webservices']);
-        return $$envConfig;
+        return $envConfig;
     }
 
 }
